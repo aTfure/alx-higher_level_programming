@@ -2,4 +2,4 @@
 
 for a in "abcdefghijklmnopqrstuvwxyz":
 
-        print('{}'.format(a), end="")
+    print('{}'.format(a), end="")
