@@ -1,24 +1,46 @@
 #!/usr/bin/python3
+"""Square module."""
+
+
 class Square:
-    """ A class that defines a square by its size
-    """
+    """Defines a square."""
+
+    def __str__(self):
+        """String representation constructor of this square"""
+        self.my_print()
+
     def __init__(self, size=0, position=(0, 0)):
-        """ Method to initialize the square object
+        """Constructor.
+
+        Args:
+            size(int): length of side of the square.
+            position(int tuple): position of the square
         """
-        self.size = size
-        self.position = position
+        if not (isinstance(size, int)):
+            raise TypeError("size must be an integer")
+        if size < 0:
+            raise ValueError("size must be >= 0")
+
+        self.__size = size
+        self.__position = position
 
     @property
     def size(self):
-        """ Method to returns the size value
+        """Properties for the length of a sise of a square.
+
+        Raises:
+            TypeError: if size is not an integer.
+            ValueError: If size < 0.
         """
         return self.__size
 
     @size.setter
     def size(self, value):
-        """ Method to set the size value of the square object
+        """setter function for private attribute size.
+           Args:
+                value: size value to set to.
         """
-        if not isinstance(value, int):
+        if not (isinstance(value, int)):
             raise TypeError("size must be an integer")
         if value < 0:
             raise ValueError("size must be >= 0")
@@ -26,43 +48,41 @@ class Square:
 
     @property
     def position(self):
-        """ Method that returns the position value
+        """Property for square position.
+
+        Raises:
+            TypeError: If value is not tuple of 2 positive integers.
         """
         return self.__position
 
     @position.setter
     def position(self, value):
-        """ Method that sets the position value of a square object
+        """setter function for private attribute position
+           Args:
+                value: position value to set to.
         """
-        if not isinstance(value, tuple):
-            raise TypeError("position must be a tuple of 2 positive integers")
-        if len(value) != 2:
-            raise TypeError("position must be a tuple of 2 positive integers")
-        if not isinstance(value[0], int):
-            raise TypeError("position must be a tuple of 2 positive integers")
-        if not isinstance(value[1], int):
-            raise TypeError("position must be a tuple of 2 positive integers")
-        if value[0] < 0 or value[1] < 0:
-            raise TypeError("position must be a tuple of 2 positive integers")
-        self.__position = value
+        if isinstance(value, tuple) and len(value) == 2:
+            if isinstance(value[0], int) and isinstance(value[1], int):
+                if value[0] >= 0 and value[1] >= 0:
+                    self.__position = value
+        else:
+            raise TypeError("position must be tuple of 2 positive integers")
 
     def area(self):
-        """ Method that returns the square are of the object
+        """Area of the square.
+
+        Returns:
+            thee size squared.
         """
-        return (self.__size ** 2)
+        return self.__size ** 2
 
     def my_print(self):
-        """ Method that prints a # square according
-        to the size value
-        """
-        if self.size == 0:
+        """Prints square with char #"""
+        if self.__size == 0:
             print()
         else:
-            for i in range(self.position[1]):
+            i, j = 0, 0
+            for i in range(self.__position[1]):
                 print()
-            for i in range(0, self.size):
-                for k in range(self.position[0]):
-                    print(" ", end='')
-                for j in range(self.size):
-                    print("#", end='')
-                print()
+            for j in range(self.__size):
+                print("{}{}".format(" " * self.__position[0], "#" * self.__size))
