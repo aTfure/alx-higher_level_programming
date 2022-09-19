@@ -2,28 +2,23 @@
 """A class that really defines a Rectangle"""
 
 
-
-class Rctangle:
+class Rectangle:
     """
-    Rectangle(class): creates a rectangle with the size specified by
+    Rectangle (class): creates a rectangle with the size specified by
     the parameter height and width
-
 
     Attributes:
         width (int): specify the width of the rectangle.
         height (int): specifies the height of the rectangle
     """
 
-
-def __init__(self, width=0, height=0):
-    self.width = width
-    self.width = height
-
+    def __init__(self, width=0, height=0):
+        self.width = width
+        self.height = height
 
     @property
     def width(self):
         return self.__width
-
 
     @width.setter
     def width(self, value):
@@ -33,7 +28,6 @@ def __init__(self, width=0, height=0):
             if value < 0:
                 raise ValueError("width must be >= 0")
             self.__width = value
-
 
     @property
     def height(self):
@@ -45,5 +39,5 @@ def __init__(self, width=0, height=0):
             raise TypeError("height must be an integer")
         else:
             if value < 0:
-                raise ValueError("height mut be >= 0")
+                raise ValueError("height must be >= 0")
             self.__height = value
