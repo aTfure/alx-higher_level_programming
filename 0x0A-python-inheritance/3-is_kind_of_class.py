@@ -1,17 +1,13 @@
 #!/usr/bin/python3
-"""Contains a `BaseGeometry` class"""
+def is_kind_of_class(obj, a_class):
+    """ Function that returns True/False if obj is an instance of a_class
 
+    Args:
+        obj: object
+        a_class: class type
 
-class BaseGeometry():
-    """An empty BaseGeometry class"""
-
-    def area(self):
-        """Calculates the area of the geometry"""
-        raise Exception('area() is not implemented')
-
-    def integer_validator(self, name, value):
-        """Validates the `value`"""
-        if type(value) != int:
-            raise TypeError("{} must be an integer".format(name))
-        if value <= 0:
-            raise ValueError("{} must be greater than 0".format(name))
+    Returns:
+        True if obj is an instance of a_class
+        False, otherwise
+    """
+    return isinstance(obj, a_class)
