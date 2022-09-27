@@ -1,30 +1,26 @@
 #!/usr/bin/python3
+"""
+Pascal triangle
+"""
+
+
 def pascal_triangle(n):
-    """ Function that returns the pascal triangle
+    """ representing the Pascal’s triangle of n
 
     Args:
-        n: number of lines
-
+        n (int): file name
     Returns:
-        matrix: a matrix with the pascal triangle
-
+        (list of lists)
     """
+    if n <= 0:
+        return []
 
-    matrix = []
-    prev = []
-
-    for i in range(n):
-        res_list = []
-        p1 = -1
-        p2 = 0
-        for j in range(len(prev) + 1):
-            if p1 == -1 or p2 == len(prev):
-                res_list += [1]
-            else:
-                res_list += [prev[p1] + prev[p2]]
-            p1 += 1
-            p2 += 1
-        matrix.append(res_list)
-        prev = res_list[:]
-
-    return matrix
+    tri_pas = [[1]]
+    for i in range(1, n):
+        row_list = [1]
+        for iteration in range(1, i):
+            row_list.append(
+                tri_pas[i - 1][iteration - 1] + tri_pas[i - 1][iteration])
+        row_list.append(1)
+        tri_pas.append(row_list)
+    return tri_pas
