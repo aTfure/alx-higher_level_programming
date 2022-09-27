@@ -1,15 +1,24 @@
 #!/usr/bin/python3
-"""Contains a class that inherits from `BaseGeometry"""
-
-BaseGeometry = __import__('7-base_geometry').BaseGeometry
+""" Class that defines the attributes of Geometric Shapes """
 
 
-class Rectangle(BaseGeometry):
-    """Inherits from `BaseGeometry `"""
+class BaseGeometry:
+    """ A Method that defines the area of a geomtric shape"""
 
-    def __init__(self, width, height):
-        """Initialize rectangle value"""
-        self.integer_validator("width", width)
-        self.__width = width
-        self.integer_validator("height", height)
-        self.__height = height
+    def area(self):
+
+        raise Exception("area() is not implemented")
+
+    """ Method that recieves the value property
+
+        Árgs:
+            name: name of the object
+            value: value of the property
+
+    """
+    def integer_validator(self, name, value):
+
+        if type(value) is not int:
+            raise TypeError("{} must be an integer".format(name))
+        if value <= 0:
+            raise ValueError("{} must be greater than 0".format(name))
