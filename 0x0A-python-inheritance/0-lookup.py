@@ -4,9 +4,8 @@
 
 
 def lookup(obj):
-        """
-            Return list of available object and methods
-            in an object
-        """
-        return dir(obj)
-
+    """
+        Return list of available object and methods
+        in an object
+    """
+    return dir(obj)
