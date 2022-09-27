@@ -1,40 +1,47 @@
 #!/usr/bin/python3
-"""
-reads stdin line by line and computes metrics
+""" Script to read stdin and compute metrics
 """
 import sys
 
-file_size = 0
-status_tally = {"200": 0, "301": 0, "400": 0, "401": 0,
-                "403": 0, "404": 0, "405": 0, "500": 0}
-i = 0
-try:
-    for line in sys.stdin:
-        tokens = line.split()
-        if len(tokens) >= 2:
-            a = i
+
+def status_print(tally, size):
+    """ Printing function
+        Args:
+            tally (dict): tally of status
+            file_size (int): size of the file
+        Return: nothing
+    """
+    print("File size: {:d}".format(size))
+    for key in sorted(tally.keys()):
+        if tally[key]:
+            print("{:s}: {:d}".format(key, tally[key]))
+
+
+def main():
+    """ Main: Entry point
+        Args: none
+        Return: nothing
+    """
+    file_size = 0
+    status_tally = {"200": 0, "301": 0, "400": 0, "401": 0,
+                    "403": 0, "404": 0, "405": 0, "500": 0}
+    line_count = 0
+    try:
+        for line in sys.stdin:
+            line_count += 1
+            tokens = line.split()
+            if len(tokens) < 7:
+                continue
             if tokens[-2] in status_tally:
                 status_tally[tokens[-2]] += 1
-                i += 1
-            try:
-                file_size += int(tokens[-1])
-                if a == i:
-                    i += 1
-            except:
-                if a == i:
-                    continue
-        if i % 10 == 0:
-            print("File size: {:d}".format(file_size))
-            for key, value in sorted(status_tally.items()):
-                if value:
-                    print("{:s}: {:d}".format(key, value))
-    print("File size: {:d}".format(file_size))
-    for key, value in sorted(status_tally.items()):
-        if value:
-            print("{:s}: {:d}".format(key, value))
+            file_size += int(tokens[-1])
+            if line_count % 10 == 0:
+                status_print(status_tally, file_size)
+        status_print(status_tally, file_size)
+    except KeyboardInterrupt as e:
+        status_print(status_tally, file_size)
+        print(e)
 
-except KeyboardInterrupt:
-    print("File size: {:d}".format(file_size))
-    for key, value in sorted(status_tally.items()):
-        if value:
-            print("{:s}: {:d}".format(key, value))
+
+if __name__ == "__main__":
+    main()
