@@ -1,30 +1,18 @@
 #!/usr/bin/python3
-""" values in the states table of
-hbtn_0e_0_usa where name matches the argument
 """
-if __name__ == "__main__":
+Lists all values in the states tables of a database where name
+matches the argument in a safe way
+"""
+import sys
+import MySQLdb
 
-    import MySQLdb
-    from sys import argv
+if __name__ == '__main__':
+        db = MySQLdb.connect(user=sys.argv[1], passwd=sys.argv[2],
+                db=sys.argv[3], port=3306)
 
-    db_name = argv[3]
-    u_pass = argv[2]
-    usr = argv[1]
-    arg = argv[4]
+    cur = db.cursor()
+    cur.execute("SELECT * FROM states WHERE name = %s;", (sys.argv[4],))
+    states = cur.fetchall()
 
-    query = "SELECT * FROM states WHERE name LIKE BINARY %s" + \
-        " ORDER BY states.id"
-    conn = MySQLdb.connect(
-        host="localhost",
-        port=3306,
-        user=usr,
-        passwd=u_pass,
-        db=db_name,
-        charset="utf8"
-    )
-
-    cur = conn.cursor()
-    cur.execute(query, (arg,))
-    rows = cur.fetchall()
-    for row in rows:
-        print("{}".format(row))
+    for state in states:
+        print(state)
